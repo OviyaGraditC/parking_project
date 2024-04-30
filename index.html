@@ -1,0 +1,199 @@
+<link rel="stylesheet" href="./parking_vehicle.css">
+
+<div class="container">
+  <h1 class="heading">Vehicle Parking Space</h1>
+  <input type="text" list="itemsList" name="browser" id="vehicleNo" placeholder="Enter Vehicle number">
+  <datalist id="itemsList"></datalist>
+
+  <button onclick="addItem()">Park Vehicle</button><br><br>
+  <div id="parking_slot_full" class="bay_no_display"></div><br>
+
+  <input type="text" list="itemsList" id="vehicleNum" placeholder="Enter Vehicle number" />
+  <button onclick="searchParkedVehicleByVehicleNum()">Search</button>
+  <button onclick="clear_searchbox()">Clear</button>
+  <button onclick="exit_by_vehicleNo()">Exit</button>
+  <br><br>
+  <div id="parked_vehicle_Bay_Number" class="bay_no_display"></div>
+  <br>
+  <div id="parking_space">
+    <div id="parking_space_pharse1">
+      <div id="parkingBays0" class="parking_slot_pharse1">
+        <h3>1</h3>
+      </div>
+      <div id="parkingBays1" class="parking_slot_pharse1">
+        <h3>2</h3>
+      </div>
+      <div id="parkingBays2" class="parking_slot_pharse1">
+        <h3>3</h3>
+      </div>
+      <div id="parkingBays3" class="parking_slot_pharse1">
+        <h3>4</h3>
+      </div>
+      <div id="parkingBays4" class="parking_slot_pharse1">
+        <h3>5</h3>
+      </div>
+    </div>
+    <br>
+    <div id="parking_space_pharse2">
+      <div id="parkingBays5" class="parking_slot_pharse2">
+        <h3>6</h3>
+      </div>
+      <div id="parkingBays6" class="parking_slot_pharse2">
+        <h3>7</h3>
+      </div>
+      <div id="parkingBays7" class="parking_slot_pharse2">
+        <h3>8</h3>
+      </div>
+      <div id="parkingBays8" class="parking_slot_pharse2">
+        <h3>9</h3>
+      </div>
+      <div id="parkingBays9" class="parking_slot_pharse2">
+        <h3>10</h3>
+      </div>
+    </div>
+  </div>
+  <br><br>
+  <input type="text" id="vehicle_bayNum" placeholder="Enter Bay number" />
+  <button onclick="exitBy_bayNum()">Exit</button>
+</div>
+
+<script>
+  // let parkingBays = Array(10).fill("");
+  let parkingBays = Array.from({ length: 10 }, () => "");
+
+  function addItem() {
+
+    var vehicleNo = document.getElementById("vehicleNo");
+    var newItem = vehicleNo.value.trim();
+
+    if (newItem !== "" && !parkingBays.includes(newItem)) {
+      for (let i = 0; i < 10; i++) {
+        if (parkingBays[i] == "") {
+          parkingBays[i] = newItem;
+
+          document.getElementById("parkingBays" + i).style.backgroundColor = "grey";
+          document.getElementById("parkingBays" + i).style.color = "white";
+          let divElement = document.getElementById("parkingBays" + i);
+          let textNode = document.createTextNode(parkingBays[i]);
+          divElement.appendChild(textNode);
+
+          break;
+        }
+      }
+      let parking_bay_Count = 0;
+      for (let i = 0; i < 10; i++) {
+        if (parkingBays[i] !== "")    
+         parking_bay_Count++;
+        
+      }
+      if (parking_bay_Count == 10) {
+        document.getElementById("parking_slot_full").innerHTML = "Parking Slot Full";
+      }
+    } 
+
+    var dataList = document.getElementById("itemsList");
+    var option = document.createElement("option");
+
+    option.value = newItem;
+    dataList.appendChild(option);
+
+    // let datali=dataList.value;
+
+    // if (!datali.includes(newItem))
+    // {
+    //   option.value = newItem;
+    // dataList.appendChild(option);
+    // }
+
+    vehicleNo.value = "";
+
+    document.getElementById("parked_vehicle_Bay_Number").innerHTML = "";
+    console.log(parkingBays);
+
+    // for (let i = 0; i <= 10; i++) {
+    //   if (parkingBays[i] !== "") {
+    //     document.getElementById("parkingBays" + i).style.backgroundColor = "red";
+    //     document.getElementById("parkingBays" + i).style.color = "white";
+    //     let divElement = document.getElementById("parkingBays" + i);
+    //     let textNode = document.createTextNode(parkingBays[i]);
+    //     divElement.appendChild(textNode);
+    //   }
+    // }
+  }
+
+  function searchParkedVehicleByVehicleNum() {
+    var vehicleNum = document.getElementById("vehicleNum");
+    let isFound = false;
+    let parked_vehicle_Bay_Number=document.getElementById("parked_vehicle_Bay_Number");
+    if (vehicleNum.value != "") {
+      for (let idx = 0; idx <= 10; idx++) {
+        if (parkingBays[idx] == vehicleNum.value) {
+          let parked_no_to_display = idx + 1;
+          parked_vehicle_Bay_Number.innerHTML = vehicleNum.value + " Vehicle parked at Bay " + parked_no_to_display;
+          isFound = true;
+          break;
+        }
+      }
+
+      if (!isFound) 
+        parked_vehicle_Bay_Number.innerHTML = "Your Vehicle not available";
+       }
+    else {
+      parked_vehicle_Bay_Number.innerHTML = "Enter Vehicle number";
+    }
+    console.log(parkingBays);
+    document.getElementById("parking_slot_full").innerHTML = "";
+  }
+
+  function clear_searchbox() {
+    let vehicle_no_to_clear = document.getElementById("vehicleNum");
+    vehicle_no_to_clear.value = "";
+    document.getElementById("parked_vehicle_Bay_Number").innerHTML = "";
+    document.getElementById("parking_slot_full").innerHTML = "";
+  }
+
+  function exit_by_vehicleNo() {
+    let vehicle_Num = document.getElementById("vehicleNum");
+    for (let idx = 0; idx <= parkingBays.length; idx++) {
+      if (parkingBays[idx] == vehicle_Num.value) {
+        parkingBays[idx] = "";
+        console.log(parkingBays);
+        document.getElementById("parkingBays" + idx).style.backgroundColor = "red";
+        let divElement = document.getElementById("parkingBays" + idx);
+        var divElement1 = document.getElementById("parkingBays" + idx);
+        divElement1.classList.add('inside_box');
+        let index = idx + 1;
+        document.getElementById("parkingBays" + idx).innerHTML = index + "<br><br>";
+      }
+
+    }
+
+    document.getElementById("parked_vehicle_Bay_Number").innerHTML = "";
+    document.getElementById("parking_slot_full").innerHTML = "";
+    vehicle_Num.value = "";
+
+
+  }
+
+  function exitBy_bayNum() {
+    let vehicle_bayNum = document.getElementById("vehicle_bayNum");
+    if (vehicle_bayNum.value >= 0) {
+      parkingBays[vehicle_bayNum.value - 1] = "";
+
+
+      let idx = vehicle_bayNum.value - 1
+      document.getElementById("parkingBays" + idx).style.backgroundColor = "red";
+      let divElement = document.getElementById("parkingBays" + idx);
+      let index = idx + 1;
+      document.getElementById("parkingBays" + idx).innerHTML = index + "<br><br>";
+
+      vehicle_bayNum.value = "";
+    }
+
+    vehicle_bayNum.value = "";
+    document.getElementById("parked_vehicle_Bay_Number").innerHTML = "";
+    document.getElementById("parking_slot_full").innerHTML = "";
+    console.log(parkingBays);
+  }
+
+</script>

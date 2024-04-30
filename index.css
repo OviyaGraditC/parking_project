@@ -1,0 +1,80 @@
+.container
+{
+    width: 618px;
+    margin: 5%;
+    margin-left: 31%;
+    border: 1px solid black;
+    box-shadow: 3px 3px 2px rgb(106, 106, 166);
+    padding: 2%;
+    padding-left: 106px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+}
+.heading
+{
+    color:red;
+font-family: 'Courier New', Courier, monospace;
+text-align: center;
+margin-top: -3px;
+}
+input{
+    width:200px;
+    height:30px;
+}
+button{
+    width:100px;
+    height:30px;
+}
+#parking_space {
+    margin-left: 0%;
+    text-align: center;
+    border: 1px solid black;
+    height: 204px;
+    width: 529px;
+}
+#parking_space_pharse1
+{
+    width: 100%;  
+    display: flex;
+}
+
+#parking_space_pharse2
+{
+    width: 100%;  
+    display: flex;
+}
+
+.parking_slot_pharse1
+{
+    background-color: rgb(255, 0, 0);
+    height: 77px;
+    width: 25%;
+    margin: 10px;
+    color: white;
+}
+
+.parking_slot_pharse2
+{
+    background-color: rgb(255, 0, 0);
+    height: 77px;
+    width: 20%;
+    margin: 0 10px 10px 10px;
+    color: white;
+}
+
+.bay_no_display
+{
+    color:red;
+    font-size: large;
+}
+
+h3
+{
+    margin-top:4px;
+}
+.inside_box
+{
+    font-size: 18px;
+    color:white;
+    padding : 1px;
+}
